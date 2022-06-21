@@ -114,8 +114,8 @@ def list_user():
 
 
 def find_user(self):
-    args = json.loads(self)
-    if args:
+    if self is not None:
+        args = json.loads(self)
         name = args.get('name')
         email = args.get('email')
         filter = {}
@@ -129,6 +129,24 @@ def find_user(self):
         return Response(response, mimetype='application/json', status=200)
     else:
         return list_user()
+
+def find_user_login(self):
+    if self is not None:
+        password = self['password']
+        email = self['email']
+        filter = {}
+        if email is not None:
+            filter['email'] = email
+        if password is not None:
+            filter['password'] = password
+
+        if email is None:
+            return Response({"error: email não pode ficar em branco"}, mimetype='application/json', status=200)
+        if password is None:
+            return Response({"error: senha não pode ficar em branco"}, mimetype='application/json', status=200)
+
+        response = json_util.dumps(db.find(filter))
+        return Response(response, mimetype='application/json', status=200)
 
 
 def delete_user(self):

@@ -4,7 +4,7 @@ from flask import request, Blueprint, jsonify
 from flask_cors import CORS
 
 from config import app
-from service.client import create_user, find_user, delete_user
+from service.client import create_user, find_user, delete_user, find_user_login
 
 blueprint = Blueprint('app', __name__, url_prefix='/idrugs-client-engine')
 
@@ -21,6 +21,11 @@ def create_user_route():
 @blueprint.route('/client', methods=['GET'])
 def find_user_route():
     return find_user(request.json)
+
+@blueprint.route('/client/login', methods=['GET'])
+def find_user_login_route():
+    response = request.json
+    return find_user_login(response)
 
 
 @blueprint.route('/client', methods=['DELETE'])
