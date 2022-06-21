@@ -22,7 +22,7 @@ def create_user_route():
 def find_user_route():
     return find_user(request.json)
 
-@blueprint.route('/client/login', methods=['GET'])
+@blueprint.route('/client/login', methods=['POST'])
 def find_user_login_route():
     response = request.json
     return find_user_login(response)
